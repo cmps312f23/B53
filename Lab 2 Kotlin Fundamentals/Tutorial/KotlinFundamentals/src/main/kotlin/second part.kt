@@ -5,6 +5,10 @@ fun main(args: Array<String>) {
     println(student.name)
     println(student.age)
     println(student)
+
+    val names = "@123123abcddsalkfjasdk8900"
+
+    print("The number of digits are ${names.filter { it.isLetterOrDigit() }}")
 }
 
 data class Student( var name : String = "" ,   var age : Int = 0)
