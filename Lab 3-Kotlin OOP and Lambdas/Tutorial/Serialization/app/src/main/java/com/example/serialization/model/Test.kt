@@ -35,7 +35,7 @@ fun main() {
 
 
     val listOfCovidData = Json{ignoreUnknownKeys = true}
-        .decodeFromString<List<CovidStat>>(covidDataText)
+         .decodeFromString<List<CovidStat>>(covidDataText)
     listOfCovidData.forEach {
         println(it)
     }
