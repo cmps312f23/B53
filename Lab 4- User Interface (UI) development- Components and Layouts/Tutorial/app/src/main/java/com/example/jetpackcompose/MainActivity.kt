@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
@@ -47,17 +49,40 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {
-    val names = listOf("Juan", "Pedro", "Maria")
+    val names = listOf(
+        "Juan",
+        "Pedro",
+        "Maria",
+        "Juan",
+        "Pedro",
+        "Maria",
+        "Juan",
+        "Pedro",
+        "Maria",
+        "Juan",
+        "Pedro",
+        "Maria",
+        "Juan",
+        "Pedro",
+        "Maria",
+        "Juan",
+        "Aya",
+        "Salma"
+    )
+    val showOnBoarding by remember { mutableStateOf(true) }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.primary,
     ) {
-        OnBoardingScreen(modifier)
-        Column(modifier = modifier.padding(vertical = 4.dp)) {
-            for (name in names) {
-                Greeting(name)
+        if (showOnBoarding)
+            OnBoardingScreen(modifier)
+        else
+            LazyColumn {
+                items(names) {
+                    Greeting(it)
+                }
             }
-        }
 
     }
 }
@@ -66,14 +91,15 @@ fun MyApp(modifier: Modifier = Modifier) {
 fun OnBoardingScreen(modifier: Modifier = Modifier) {
     Column {
         Text("Welcome to Jetpack Compose")
-        Button(onClick = { /*TODO*/ }) {
+        ElevatedButton(onClick = { /*TODO*/ }) {
             Text(text = "Continue")
         }
     }
 }
+
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false)}
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
     Surface(
         color = MaterialTheme.colorScheme.tertiary,
@@ -90,8 +116,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
                 )
                 if (expanded)
-                    Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                            "Randome text to be shown only when the show more is clicked")
+                    Text(
+                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                                "Randome text to be shown only when the show more is clicked"
+                    )
             }
 
             ElevatedButton(onClick = {
