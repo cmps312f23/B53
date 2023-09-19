@@ -2,6 +2,7 @@ package com.example.jetpackcompose
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -16,6 +17,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,6 +52,7 @@ fun MyApp(modifier: Modifier = Modifier) {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.primary,
     ) {
+        OnBoardingScreen(modifier)
         Column(modifier = modifier.padding(vertical = 4.dp)) {
             for (name in names) {
                 Greeting(name)
@@ -56,7 +63,18 @@ fun MyApp(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun OnBoardingScreen(modifier: Modifier = Modifier) {
+    Column {
+        Text("Welcome to Jetpack Compose")
+        Button(onClick = { /*TODO*/ }) {
+            Text(text = "Continue")
+        }
+    }
+}
+@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false)}
+
     Surface(
         color = MaterialTheme.colorScheme.tertiary,
         modifier = Modifier
@@ -64,17 +82,23 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             .fillMaxWidth()
     ) {
         Row {
-            Column (modifier = modifier.weight(1f)) {
+            Column(modifier = modifier.weight(1f)) {
                 Text(
                     text = "Hello $name!",
                     modifier = Modifier
                         .padding(10.dp)
 
                 )
-                Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Randome text to be shown only when the show more is clicked")
+                if (expanded)
+                    Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                            "Randome text to be shown only when the show more is clicked")
             }
 
-            ElevatedButton(onClick = { /*TODO*/ }) {
+            ElevatedButton(onClick = {
+                expanded = !expanded
+                Log.d("Expanded", "Expanded: " + expanded)
+
+            }) {
                 Text(text = "Show More")
             }
 
