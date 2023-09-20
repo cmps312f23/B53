@@ -93,13 +93,15 @@ fun MyApp(modifier: Modifier = Modifier) {
 
 @Composable
 fun OnBoardingScreen(modifier: Modifier = Modifier , updateOnBoard : (Boolean) -> Unit) {
-    Column (verticalArrangement = Arrangement.Center ,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Welcome to Jetpack Compose")
-        ElevatedButton(onClick = {
-            updateOnBoard(false)
-        }) {
-            Text(text = "Continue")
+    Surface (modifier = modifier.background(Color.Yellow)) {
+        Column (verticalArrangement = Arrangement.Center ,
+            horizontalAlignment = Alignment.CenterHorizontally , modifier = modifier.background(Color.Yellow)) {
+            Text("Welcome to Jetpack Compose")
+            ElevatedButton(onClick = {
+                updateOnBoard(false)
+            }) {
+                Text(text = "Continue")
+            }
         }
     }
 }
