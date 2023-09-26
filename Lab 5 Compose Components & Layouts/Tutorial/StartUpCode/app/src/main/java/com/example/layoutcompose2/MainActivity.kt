@@ -80,16 +80,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            val windowSizeClass = calculateWindowSizeClass(this)
+            val windowSizeClass = calculateWindowSizeClass(LocalContext.current)
             when (windowSizeClass.widthSizeClass) {
                 WindowWidthSizeClass.Compact -> {
-                    SearchBar()
+                    Text("I am in compact mode")
                 }
                 WindowWidthSizeClass.Expanded -> {
-                   Text(text = "hello world")
+                    Text(text = "I am in expanded mode")
+                }
+                WindowWidthSizeClass.Medium -> {
+                    Text(text = "I am in medium mode")
                 }
             }
-            MySootheApp()
         }
     }
 }
@@ -106,6 +108,7 @@ fun SearchBar(
 
 
 
+
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = queryString,
@@ -117,7 +120,7 @@ fun SearchBar(
             )
         },
         colors = TextFieldDefaults.textFieldColors()
-     
+
     )
 
 
@@ -130,7 +133,7 @@ fun AlignYourBodyElement(
     @DrawableRes drawable: Int,
     @StringRes text: Int
 ) {
-
+    Text(text = "Hello World" , style = MaterialTheme.typography.headlineSmall)
 }
 
 // Step: Favorite collection card - Material Surface
