@@ -52,22 +52,45 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.layoutcompose2.ui.theme.MySootheTheme
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+
 
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { MySootheApp() }
+        setContent {
+
+            val windowSizeClass = calculateWindowSizeClass(this)
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    SearchBar()
+                }
+                WindowWidthSizeClass.Expanded -> {
+                   Text(text = "hello world")
+                }
+            }
+            MySootheApp()
+        }
     }
 }
 
@@ -77,7 +100,25 @@ class MainActivity : ComponentActivity() {
 fun SearchBar(
     modifier: Modifier = Modifier
 ) {
+//    variable state
+    var queryString by remember { mutableStateOf("") }
     // Implement composable here
+
+
+
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = queryString,
+        onValueChange = { queryString = it },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = ""
+            )
+        },
+        colors = TextFieldDefaults.textFieldColors()
+     
+    )
 
 
 }
@@ -209,7 +250,9 @@ fun AlignYourBodyElementPreview() {
 fun FavoriteCollectionCardPreview() {
     MySootheTheme {
         FavoriteCollectionCard(
-            modifier = Modifier.padding(8.dp) , R.drawable.fc1_short_mantras, R.string.fc1_short_mantras
+            modifier = Modifier.padding(8.dp),
+            R.drawable.fc1_short_mantras,
+            R.string.fc1_short_mantras
         )
     }
 }
