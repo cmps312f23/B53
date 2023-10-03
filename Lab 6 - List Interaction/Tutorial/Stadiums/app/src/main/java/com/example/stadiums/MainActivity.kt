@@ -14,11 +14,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.stadiums.repo.StadiumRepo
 import com.example.stadiums.ui.theme.StadiumsTheme
+import com.example.stadiums.view.StadiumList
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             StadiumsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -36,9 +38,5 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {
     val stadiums = StadiumRepo.getStadiums(LocalContext.current)
-    Column {
-        stadiums.forEach {
-            Text(text = it.name)
-        }
-    }
+    StadiumList(stadiums = stadiums)
 }
