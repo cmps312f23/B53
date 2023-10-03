@@ -8,7 +8,6 @@ object StadiumRepo {
     var stadiums = listOf<Stadium>()
 
     fun getStadiums(context: Context): List<Stadium> {
-
         if(stadiums.isEmpty()) {
             // read the stadium.json data from the assets folder
             val jsonTextOfTheFile = context
@@ -21,8 +20,6 @@ object StadiumRepo {
             stadiums = Json { ignoreUnknownKeys = true }
                 .decodeFromString(jsonTextOfTheFile)
         }
-
         return stadiums
-
     }
 }
