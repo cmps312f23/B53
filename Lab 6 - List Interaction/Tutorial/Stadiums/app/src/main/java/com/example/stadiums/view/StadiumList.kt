@@ -3,6 +3,7 @@ package com.example.stadiums.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,13 +25,16 @@ import com.example.stadiums.ui.theme.StadiumsTheme
 
 @Composable
 fun StadiumCard(stadium: Stadium, modifier: Modifier = Modifier) {
-    val imageId =  LocalContext.current.resources
+    val imageId = LocalContext.current.resources
         .getIdentifier(
-             stadium.imageName,
+            stadium.imageName,
             "drawable",
-            LocalContext.current.packageName)
+            LocalContext.current.packageName
+        )
 
-    Card (modifier = modifier.padding(10.dp)) {
+    Card(modifier = modifier.padding(10.dp) .fillMaxWidth()
+
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier.padding(10.dp)
@@ -44,12 +48,13 @@ fun StadiumCard(stadium: Stadium, modifier: Modifier = Modifier) {
 
             )
             Column {
-                Text(text = "${stadium.name} Stadium",
+                Text(
+                    text = "${stadium.name} Stadium",
                     style = MaterialTheme.typography.titleLarge,
 
                     modifier = modifier.padding(bottom = 10.dp)
 
-                    )
+                )
                 Text(text = "City : ${stadium.city}")
                 Text(text = "Capacity :${stadium.seatingCapacity}")
                 Text(text = "Status :${stadium.status}")
@@ -59,9 +64,12 @@ fun StadiumCard(stadium: Stadium, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun StadiumList(stadiums : List<Stadium>, modifier: Modifier = Modifier) {
-    LazyColumn {
-        items(stadiums)  {
+fun StadiumList(
+    stadiums: List<Stadium>,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(modifier = modifier) {
+        items(stadiums) {
             StadiumCard(it)
         }
     }
