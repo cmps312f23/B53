@@ -14,13 +14,13 @@ import com.example.navbasics.ui.theme.NavBasicsTheme
 
 
 @Composable
-fun CartScreen(modifier: Modifier = Modifier) {
+fun CartScreen(modifier: Modifier = Modifier, count : Int? , fruit: String?) {
     Box(
         Modifier.background(MaterialTheme.colorScheme.tertiary).fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Cart Screen",
+            text = "Cart Screen $count $fruit",
             color = MaterialTheme.colorScheme.onTertiary,
             fontSize = 25.sp
         )
@@ -31,6 +31,6 @@ fun CartScreen(modifier: Modifier = Modifier) {
 @Composable
 fun CartScreenPreview() {
     NavBasicsTheme {
-        CartScreen()
+        CartScreen(count = 20 , fruit = "banana")
     }
 }

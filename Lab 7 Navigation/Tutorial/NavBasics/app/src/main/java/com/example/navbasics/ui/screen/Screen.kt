@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 //it just helps you not to make mistakes while typing the route or title etc...
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
     //    declare objects
-    object CartScreen : Screen("cart", "Cart", Icons.Default.ShoppingCart)
+    object CartScreen : Screen("cart/{count}/{fruit}", "Cart", Icons.Default.ShoppingCart)
     object FirstScreen : Screen("first-screen", "First Screen", Icons.Default.ScreenShare)
     object SecondScreen : Screen("second-screen", "Second Screen", Icons.Default.ScreenRotation)
 }
