@@ -1,0 +1,92 @@
+[
+    {
+        "title": "Android in Action, Second Edition",
+        "isbn": "X1b3F",
+        "pageCount": 592,
+        "author": "W. Frank Ableson",
+        "status": "PUBLISH",
+        "category": "Java",
+        "image": "image_1",
+        "description": "A comprehensive tutorial for Android developers covering architectural concepts and implementation strategies."
+    },
+    {
+        "title": "Specification by Example",
+        "isbn": "XK7z4",
+        "pageCount": 100,
+        "author": "Gojko Adzic",
+        "status": "PUBLISH",
+        "category": "Software Engineering",
+        "image": "image_2",
+        "description": "Focuses on software engineering and provides insights into creating software specifications through practical examples and techniques."
+    },
+    {
+        "title": "Flex 3 in Action",
+        "isbn": "XQpR8",
+        "pageCount": 576,
+        "author": "Tariq Ahmed",
+        "status": "PUBLISH",
+        "category": "Internet",
+        "image": "image_3",
+        "description": "A hands-on tutorial for creating high-quality, interactive Rich Internet Applications (RIAs) using Flex 3."
+    },
+    {
+        "title": "Flex 4 in Action",
+        "isbn": "XeVn0",
+        "pageCount": 600,
+        "author": "Tariq Ahmed",
+        "status": "PUBLISH",
+        "category": "Internet",
+        "image": "image_4",
+        "description": "Introduces Flex 4 and guides you through building dynamic and visually appealing Rich Internet Applications (RIAs)."
+    },
+    {
+        "title": "Collective Intelligence in Action",
+        "isbn": "XwLr2",
+        "pageCount": 425,
+        "author": "Satnam Alag",
+        "status": "PUBLISH",
+        "category": "Internet",
+        "image": "image_5",
+        "description": "A practical guide to implementing collective-intelligence concepts using Java, emphasizing data gathering and mining techniques, personalization, and collaboration."
+    },
+    {
+        "title": "Zend Framework in Action",
+        "isbn": "XJpC0",
+        "pageCount": 397,
+        "author": "Rob Allen",
+        "status": "PUBLISH",
+        "category": "Web Development",
+        "image": "image_6",
+        "description": "A comprehensive tutorial on using the Zend Framework to create web-based applications and web services."
+    },
+    {
+        "title": "Flex on Java",
+        "isbn": "XyFm7",
+        "pageCount": 265,
+        "author": "Bernerd Allmon",
+        "status": "PUBLISH",
+        "category": "Internet",
+        "image": "image_7",
+        "description": "Teaches you how to integrate Flex with Java to create rich web applications."
+    },
+    {
+        "title": "Griffon in Action",
+        "isbn": "X9hI4",
+        "pageCount": 375,
+        "author": "Andres Almiray",
+        "status": "PUBLISH",
+        "category": "Java",
+        "image": "image_8",
+        "description": "A tutorial for Java developers exploring Griffon's high productivity approach to building Swing applications."
+    },
+    {
+        "title": "OSGi in Depth",
+        "isbn": "XzUa9",
+        "pageCount": 375,
+        "author": "Alexandre de Castro Alves",
+        "status": "PUBLISH",
+        "category": "Java",
+        "image": "image_9",
+        "description": "Delves into building application frameworks using the OSGi service platform, covering programming models, modularization techniques, and the development of domain-specific applications."
+    }
+]
