@@ -31,6 +31,7 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
             initialValue = emptyList()
         )
 
+    private val cid = 10001
 //    var transfers = mutableStateListOf<Transfer>()
 
 //    init {
@@ -61,7 +62,8 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     }
 
     fun getAccounts() = viewModelScope.launch {
-        accounts.addAll(quBankService.getAccounts(10001))
+        accounts.clear()
+        accounts.addAll(quBankService.getAccounts(cid))
     }
 
     fun addTransfer(transfer: Transfer) {
@@ -76,8 +78,8 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     fun getAccount(accountNo: String): Account? = accounts.find { it.accountNo == accountNo }
 
     fun getBeneficiaries() {
-        beneficiaries.clear()
         viewModelScope.launch {
+            beneficiaries.clear()
             beneficiaries.addAll(quBankService.getBeneficiaries(10001))
         }
     }
