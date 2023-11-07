@@ -10,7 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import cmps312.bankingapp.viewmodel.BankingViewModel
+import com.cmps312.bankingapp.ui.viewmodel.BankingViewModel
 import com.cmps312.bankingapp.ui.views.account.AccountDetails
 import com.cmps312.bankingapp.ui.views.transfer.BeneficiaryList
 import com.cmps312.bankingapp.ui.views.transfer.TransferConfirmation
@@ -39,7 +39,7 @@ fun AppNavigator(navHostController: NavHostController, paddingValues: PaddingVal
         }
 
         composable(route = Screen.FundTransfer.route) {
-            TransferFund(onFundTransfer = {
+            TransferFund(bankingViewModel, onFundTransfer = {
                 navHostController.navigate(Screen.Beneficiary.route)
             })
         }

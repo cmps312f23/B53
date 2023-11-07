@@ -1,9 +1,7 @@
-package cmps312.bankingapp.viewmodel
+package com.cmps312.bankingapp.ui.viewmodel
 
 import android.app.Application
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,33 +9,48 @@ import com.cmps312.bankingapp.data.model.Account
 import com.cmps312.bankingapp.data.model.Beneficiary
 import com.cmps312.bankingapp.data.model.Transfer
 import com.cmps312.bankingapp.data.webapi.QuBankService
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     private val TAG = "TransferViewModel"
-
-    //    TODO("Not yet implemented")
-    val quBankService = QuBankService()
+    private val quBankService = QuBankService()
 
     val accounts = mutableStateListOf<Account>()
     val beneficiaries = mutableStateListOf<Beneficiary>()
 
     //it will automatically recompose the UI once the data is received
-    var transfers = mutableStateListOf<Transfer>()
+    var transfers: StateFlow<List<Transfer>> = quBankService.getTransfers(10001)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
-    init {
-        TODO("Not yet implemented")
-    }
+//    var transfers = mutableStateListOf<Transfer>()
 
-    private fun getTransfers() {
-//        TODO("Not yet implemented")
-    }
+//    init {
+//        getTransfers()
+//    }
+
+//    private fun getTransfers() {
+//        Log.d("Transfers", "getTransfers: ")
+//        viewModelScope.launch {
+//            val trans = quBankService.getTransfersNoFlow(10001)
+//            print(trans)
+//            transfers.addAll(trans)
+//        }
+//    }
 
     // used for holding the details of new Transfer - used instead of Nav Component nav args
     lateinit var newTransfer: Transfer
 
 
-    //Fund Transfer screen calls this method before naviagation
+    //Fund Transfer screen calls this method before navigation
     fun setTransferFromDetails(fromAccount: String, amount: Double) {
         newTransfer = Transfer(fromAccount, amount)
     }
@@ -48,24 +61,31 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     }
 
     fun getAccounts() = viewModelScope.launch {
-        TODO("Not yet implemented")
+        accounts.addAll(quBankService.getAccounts(10001))
     }
 
     fun addTransfer(transfer: Transfer) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            val newTransfer = quBankService.addTransfer(transfer)
+            Log.d(TAG, "addTransfer: $newTransfer")
+        }
     }
 
-    fun getTransfer(transferId: String) = transfers.find { it.transferId == transferId }
+//    fun getTransfer(transferId: String) = transfers.find { it.transferId == transferId }
 
     fun getAccount(accountNo: String): Account? = accounts.find { it.accountNo == accountNo }
 
     fun getBeneficiaries() {
-        TODO("Not yet implemented")
+
+        viewModelScope.launch {
+            beneficiaries.addAll(quBankService.getBeneficiaries(10001))
+        }
     }
 
     fun deleteTransfer(transferId: String) {
-        TODO("Not yet implemented")
-
+        viewModelScope.launch {
+            quBankService.deleteTransfer(10001, transferId)
+        }
     }
 }
 

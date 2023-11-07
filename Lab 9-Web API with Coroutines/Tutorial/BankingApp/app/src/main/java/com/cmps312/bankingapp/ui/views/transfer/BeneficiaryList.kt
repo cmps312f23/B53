@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import cmps312.bankingapp.viewmodel.BankingViewModel
+import com.cmps312.bankingapp.ui.viewmodel.BankingViewModel
 import com.cmps312.bankingapp.data.model.Beneficiary
 import com.cmps312.bankingapp.ui.navigation.Screen
 

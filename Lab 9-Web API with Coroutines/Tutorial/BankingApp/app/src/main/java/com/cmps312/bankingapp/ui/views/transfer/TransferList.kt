@@ -14,17 +14,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cmps312.bankingapp.viewmodel.BankingViewModel
+import com.cmps312.bankingapp.ui.viewmodel.BankingViewModel
 import com.cmps312.bankingapp.data.model.Transfer
 import com.cmps312.bankingapp.ui.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TransferList(bankingViewModel: BankingViewModel , onTransferSelected: (String) -> Unit) {
-    val transfers = bankingViewModel.transfers
+fun TransferList(bankingViewModel: BankingViewModel, onTransferSelected: (String) -> Unit) {
+    val transfers = bankingViewModel.transfers.collectAsState().value
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Fund Transfers") })
