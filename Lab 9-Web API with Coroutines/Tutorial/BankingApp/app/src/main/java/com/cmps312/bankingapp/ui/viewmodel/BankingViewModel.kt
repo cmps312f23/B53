@@ -59,6 +59,7 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     fun setTransferBeneficiaryDetails(beneficiaryName: String, beneficiaryAccountNo: String) {
         newTransfer.beneficiaryName = beneficiaryName
         newTransfer.beneficiaryAccountNo = beneficiaryAccountNo
+        newTransfer.cid = cid
     }
 
     fun getAccounts() = viewModelScope.launch {

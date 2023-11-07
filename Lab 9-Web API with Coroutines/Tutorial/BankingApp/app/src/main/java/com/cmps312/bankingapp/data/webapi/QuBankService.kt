@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 
 class QuBankService : BankService {
-    private val refreshIntervalMs: Long = 20000
+    private val refreshIntervalMs: Long = 5000
     private val baseUrl = "https://cmps312banking.cyclic.app/api"
     private val TAG = "QuBankService"
 
