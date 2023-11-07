@@ -76,7 +76,7 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     fun getAccount(accountNo: String): Account? = accounts.find { it.accountNo == accountNo }
 
     fun getBeneficiaries() {
-
+        beneficiaries.clear()
         viewModelScope.launch {
             beneficiaries.addAll(quBankService.getBeneficiaries(10001))
         }
