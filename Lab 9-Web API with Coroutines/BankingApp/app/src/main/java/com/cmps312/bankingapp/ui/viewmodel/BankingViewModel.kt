@@ -1,43 +1,45 @@
-package cmps312.bankingapp.viewmodel
+package com.cmps312.bankingapp.ui.viewmodel
 
 import android.app.Application
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmps312.bankingapp.data.model.Account
 import com.cmps312.bankingapp.data.model.Beneficiary
 import com.cmps312.bankingapp.data.model.Transfer
-import com.cmps312.bankingapp.data.webapi.QuBankService
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     private val TAG = "TransferViewModel"
+//    private val quBankService = QuBankService()
 
-    //    TODO("Not yet implemented")
-    val quBankService = QuBankService()
-
+    private val cid = 10001
     val accounts = mutableStateListOf<Account>()
     val beneficiaries = mutableStateListOf<Beneficiary>()
+    val transfers = mutableStateListOf<Transfer>(
+        Transfer("123", 123.0 , "Name" , "123", "e44" )
+    )
 
-    //it will automatically recompose the UI once the data is received
-    var transfers = mutableStateListOf<Transfer>()
+//    var transfers = mutableStateListOf<Transfer>()
 
     init {
-        TODO("Not yet implemented")
+        getAccounts()
     }
 
     private fun getTransfers() {
-//        TODO("Not yet implemented")
+        Log.d("Transfers", "getTransfers: ")
+      //  TODO("To be implemented")
     }
 
     // used for holding the details of new Transfer - used instead of Nav Component nav args
     lateinit var newTransfer: Transfer
 
 
-    //Fund Transfer screen calls this method before naviagation
+    //Fund Transfer screen calls this method before navigation
     fun setTransferFromDetails(fromAccount: String, amount: Double) {
         newTransfer = Transfer(fromAccount, amount)
     }
@@ -45,27 +47,23 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     fun setTransferBeneficiaryDetails(beneficiaryName: String, beneficiaryAccountNo: String) {
         newTransfer.beneficiaryName = beneficiaryName
         newTransfer.beneficiaryAccountNo = beneficiaryAccountNo
+        newTransfer.cid = cid
     }
 
     fun getAccounts() = viewModelScope.launch {
-        TODO("Not yet implemented")
+      // TODO("To be implemented")
     }
 
     fun addTransfer(transfer: Transfer) {
-        TODO("Not yet implemented")
+       // TODO("To be implemented")
     }
 
-    fun getTransfer(transferId: String) = transfers.find { it.transferId == transferId }
-
-    fun getAccount(accountNo: String): Account? = accounts.find { it.accountNo == accountNo }
-
     fun getBeneficiaries() {
-        TODO("Not yet implemented")
+       // TODO("To be implemented")
     }
 
     fun deleteTransfer(transferId: String) {
-        TODO("Not yet implemented")
-
+       // TODO("To be implemented")
     }
 }
 

@@ -18,18 +18,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import cmps312.bankingapp.viewmodel.BankingViewModel
+import com.cmps312.bankingapp.ui.viewmodel.BankingViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountDetails(bankingViewModel: BankingViewModel, accountNo: String) {
+fun AccountDetails(bankingViewModel: BankingViewModel, cid: Int) {
     /* Get an instance of the shared viewModel
         Make the activity the store owner of the viewModel
         to ensure that the same viewModel instance is used for all destinations
     */
-    val bankingViewModel =
-        viewModel<BankingViewModel>(viewModelStoreOwner = LocalContext.current as ComponentActivity)
-    val account = bankingViewModel.getAccount(accountNo)
+    val balance =
+        mutableListOf<Double>(bankingViewModel
+            .accounts.filter { it.cid == cid}
+            .fold(0.0) { acc, account ->  acc + account.balance})
 
     Scaffold(
         topBar = {
@@ -49,8 +50,8 @@ fun AccountDetails(bankingViewModel: BankingViewModel, accountNo: String) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text(text = "Welcome back ${account?.accountNo}")
-                Text(text = "Your balance is ${account?.balance} QR")
+                Text(text = "Welcome back $cid")
+                Text(text = "Your balance is ${balance} QR")
             }
         }
     }
@@ -60,5 +61,5 @@ fun AccountDetails(bankingViewModel: BankingViewModel, accountNo: String) {
 @Composable
 fun PreviewAccountDetails() {
     val bankingViewModel: BankingViewModel = viewModel()
-    AccountDetails(bankingViewModel, "19123-1456-789")
+    AccountDetails(bankingViewModel, 10001)
 }

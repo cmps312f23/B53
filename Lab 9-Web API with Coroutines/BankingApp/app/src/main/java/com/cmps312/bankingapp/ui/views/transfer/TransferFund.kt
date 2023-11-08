@@ -25,17 +25,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import cmps312.bankingapp.viewmodel.BankingViewModel
+import com.cmps312.bankingapp.ui.viewmodel.BankingViewModel
 import com.cmps312.bankingapp.ui.views.common.displayMessage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TransferFund(onFundTransfer: () -> Unit) {
-    val bankingViewModel =
-        viewModel<BankingViewModel>(viewModelStoreOwner = LocalContext.current as ComponentActivity)
-
+fun TransferFund(bankingViewModel: BankingViewModel, onFundTransfer: () -> Unit) {
     var fromAccount by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
+    //we populate the data
+    bankingViewModel.getAccounts()
 
     var expandable by remember {
         mutableStateOf(false)
@@ -49,56 +48,52 @@ fun TransferFund(onFundTransfer: () -> Unit) {
             TopAppBar(title = { Text("Transfer Fund") })
         }
     ) {
-        Card(
+
+        Column(
             modifier = Modifier
                 .padding(it)
-                .fillMaxWidth()
-                .fillMaxSize()
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
 
-                // Dropdown
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.clickable { expandable = !expandable }) {
-                    OutlinedTextField(
-                        value = fromAccount,
-                        onValueChange = { },
-                        enabled = false,
-                        trailingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.ArrowDropDown,
-                                contentDescription = "Dropdown"
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        label = {
-                            Text("From Account")
-                        }
-                    )
-                    //we populate the data
-                    bankingViewModel.getAccounts()
-                    DropdownMenu(expanded = expandable, onDismissRequest = { expandable = false }) {
-                        bankingViewModel.accounts.forEach { account ->
-                            DropdownMenuItem(text = { Text(text = "$account") }, onClick = {
-                                expandable = false
-                                fromAccount = account.accountNo
-                            })
-                        }
+            // Dropdown
+            Row(verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.clickable { expandable = !expandable }) {
+                OutlinedTextField(
+                    value = fromAccount,
+                    onValueChange = { },
+                    enabled = false,
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.ArrowDropDown,
+                            contentDescription = "Dropdown"
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth().padding(20.dp),
+                    label = {
+                        Text("From Account")
+                    }
+                )
+
+                DropdownMenu(expanded = expandable, onDismissRequest = { expandable = false }) {
+                    bankingViewModel.accounts.forEach { account ->
+                        DropdownMenuItem(text = { Text(text = "$account") }, onClick = {
+                            expandable = false
+                            fromAccount = account.accountNo
+                        })
                     }
                 }
-
-
             }
+
+
+
             OutlinedTextField(
                 value = amount,
                 onValueChange = { amount = it },
                 label = { Text(text = "Amount ") },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
 
@@ -112,11 +107,12 @@ fun TransferFund(onFundTransfer: () -> Unit) {
                     }
                 },
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
+//                .align(Alignment.CenterHorizontally)
                     .padding(16.dp)
             ) {
                 Text(text = "Next")
             }
+
         }
     }
 }
@@ -124,6 +120,7 @@ fun TransferFund(onFundTransfer: () -> Unit) {
 @Preview
 @Composable
 fun DisplayFunTransfer() {
-    TransferFund(onFundTransfer = {
+    val bankingViewModel: BankingViewModel = viewModel()
+    TransferFund(bankingViewModel, onFundTransfer = {
     })
 }

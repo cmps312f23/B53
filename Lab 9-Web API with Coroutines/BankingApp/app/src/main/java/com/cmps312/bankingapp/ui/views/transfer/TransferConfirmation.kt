@@ -14,16 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import cmps312.bankingapp.viewmodel.BankingViewModel
+import com.cmps312.bankingapp.ui.viewmodel.BankingViewModel
 
 //Todo add the navigation
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun TransferConfirmation(onNavigateBack: () -> Unit) {
-    val bankingViewModel =
-        viewModel<BankingViewModel>(viewModelStoreOwner = LocalContext.current as ComponentActivity)
-
+fun TransferConfirmation(bankingViewModel : BankingViewModel,onNavigateBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Confirm Transfer") })
