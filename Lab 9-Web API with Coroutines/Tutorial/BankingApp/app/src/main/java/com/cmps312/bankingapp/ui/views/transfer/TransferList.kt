@@ -40,7 +40,7 @@ fun TransferList(bankingViewModel: BankingViewModel, onTransferSelected: (String
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             items(transfers) { transfer ->
-                TransferCar(
+                TransferCard(
                     transfer,
                     onTransferSelected = {
                         onTransferSelected(transfer.transferId)
@@ -55,7 +55,7 @@ fun TransferList(bankingViewModel: BankingViewModel, onTransferSelected: (String
 }
 
 @Composable
-fun TransferCar(transfer: Transfer, onTransferSelected: () -> Unit, onTransferDelete: () -> Unit) {
+fun TransferCard(transfer: Transfer, onTransferSelected: () -> Unit, onTransferDelete: () -> Unit) {
     Card(
         modifier = Modifier.padding(8.dp)
     ) {

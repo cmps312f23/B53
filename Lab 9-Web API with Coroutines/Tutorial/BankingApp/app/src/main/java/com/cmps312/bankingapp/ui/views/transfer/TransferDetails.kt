@@ -1,6 +1,7 @@
 package com.cmps312.bankingapp.ui.views.transfer
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -14,7 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,9 +26,8 @@ import com.cmps312.bankingapp.ui.viewmodel.BankingViewModel
 //Todo add the navigation
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TransferDetails(transferId: String, onNavigateBack: () -> Unit) {
-    val bankingViewModel =
-        viewModel<BankingViewModel>(viewModelStoreOwner = LocalContext.current as ComponentActivity)
+fun TransferDetails(bankingViewModel : BankingViewModel, transferId: String, onNavigateBack: () -> Unit) {
+
     val transfer =
         bankingViewModel.transfers
             .collectAsState()
@@ -49,15 +51,15 @@ fun TransferDetails(transferId: String, onNavigateBack: () -> Unit) {
             )
         }
     ) {
+
         Card(
             modifier = Modifier
                 .padding(it)
-                .height(140.dp),
-
-            ) {
+        ) {
             Column(
-                modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier
+                    .padding( 30.dp),
             ) {
                 Text(text = "From Account Number: ${transfer?.fromAccountNo}")
                 Text(text = "Amount Transferred: ${transfer?.amount} QR")

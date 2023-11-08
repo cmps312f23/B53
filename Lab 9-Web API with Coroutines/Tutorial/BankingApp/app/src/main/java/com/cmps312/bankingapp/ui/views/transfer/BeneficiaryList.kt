@@ -25,10 +25,7 @@ import com.cmps312.bankingapp.ui.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BeneficiaryList(onBeneficiarySelected: () -> Unit) {
-    val bankingViewModel =
-        viewModel<BankingViewModel>(viewModelStoreOwner = LocalContext.current as ComponentActivity)
-
+fun BeneficiaryList(bankingViewModel : BankingViewModel,  onBeneficiarySelected: () -> Unit) {
     //we need to populate the beneficiaries
     bankingViewModel.getBeneficiaries()
 

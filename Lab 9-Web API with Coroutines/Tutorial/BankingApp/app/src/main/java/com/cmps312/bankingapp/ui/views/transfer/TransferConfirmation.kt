@@ -20,10 +20,7 @@ import com.cmps312.bankingapp.ui.viewmodel.BankingViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun TransferConfirmation(onNavigateBack: () -> Unit) {
-    val bankingViewModel =
-        viewModel<BankingViewModel>(viewModelStoreOwner = LocalContext.current as ComponentActivity)
-
+fun TransferConfirmation(bankingViewModel : BankingViewModel,onNavigateBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Confirm Transfer") })

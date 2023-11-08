@@ -3,6 +3,7 @@ package com.cmps312.bankingapp.ui.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmps312.bankingapp.data.model.Account
@@ -34,9 +35,9 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     private val cid = 10001
 //    var transfers = mutableStateListOf<Transfer>()
 
-//    init {
-//        getTransfers()
-//    }
+    init {
+        getAccounts()
+    }
 
 //    private fun getTransfers() {
 //        Log.d("Transfers", "getTransfers: ")
@@ -65,6 +66,7 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
     fun getAccounts() = viewModelScope.launch {
         accounts.clear()
         accounts.addAll(quBankService.getAccounts(cid))
+
     }
 
     fun addTransfer(transfer: Transfer) {
@@ -76,7 +78,7 @@ class BankingViewModel(appContext: Application) : AndroidViewModel(appContext) {
 
 //    fun getTransfer(transferId: String) = transfers.find { it.transferId == transferId }
 
-    fun getAccount(accountNo: String): Account? = accounts.find { it.accountNo == accountNo }
+//    fun getAccount(accountNo: String): Account? = accounts.find { it.accountNo == accountNo }
 
     fun getBeneficiaries() {
         viewModelScope.launch {
