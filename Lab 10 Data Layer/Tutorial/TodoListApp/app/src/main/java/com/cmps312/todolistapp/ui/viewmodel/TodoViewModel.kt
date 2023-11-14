@@ -28,7 +28,7 @@ class TodoViewModel(appContext: Application) : AndroidViewModel(appContext) {
     lateinit var selectedProject: Project
 
     fun getTodos(project: Project) {
-        todos = todoRepository.getTodoListByProject(project.id)
+        todos = todoRepository.observeTodos(project.id)
         Log.d("TAG", "getTodos: $project.id $project.name")
     }
 
