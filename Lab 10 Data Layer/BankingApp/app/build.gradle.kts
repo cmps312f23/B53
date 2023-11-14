@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-
     kotlin("plugin.serialization") version "1.8.10"
+    id ("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
 android {
@@ -11,10 +11,11 @@ android {
 
     defaultConfig {
         applicationId = "com.cmps312.bankingapp"
-        minSdk = 24
+        minSdk = 27
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -42,7 +43,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
@@ -93,4 +94,19 @@ dependencies {
 
     // Kotlin Datetime
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+
+    // Room
+    val roomVersion = "2.6.0"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    // Kotlin Symbol Processing (KSP) - for processing annotations
+    ksp("androidx.room:room-compiler:$roomVersion")
+    // Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    // Kotlin Datetime
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
+
+    // Required to be able to use collectAsStateWithLifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
 }
