@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class TodoViewModel(appContext: Application) : AndroidViewModel(appContext) {
+class TodolistViewModel(appContext: Application) : AndroidViewModel(appContext) {
 
     private val todoRepository by lazy { TodoRepository(appContext) }
     var projectsFlow = todoRepository.observeProjects().stateIn(
@@ -23,12 +23,13 @@ class TodoViewModel(appContext: Application) : AndroidViewModel(appContext) {
     )
 
     lateinit var todos: Flow<List<Todo>>
-
     lateinit var selectedTodo: Todo
     lateinit var selectedProject: Project
 
+    var isEditMode = false
+
     fun getTodos(project: Project) {
-        todos = todoRepository.observeTodos(project.id)
+        todos = todoRepository.getTodoListByProject(project.id)
         Log.d("TAG", "getTodos: $project.id $project.name")
     }
 
@@ -50,9 +51,9 @@ class TodoViewModel(appContext: Application) : AndroidViewModel(appContext) {
         }
     }
 
-    fun addProject(project: Project) {
+    fun upsertProject(project: Project) {
         viewModelScope.launch(Dispatchers.IO) {
-            todoRepository.addProject(project)
+            todoRepository.upsertProject(project)
         }
     }
 
@@ -61,6 +62,8 @@ class TodoViewModel(appContext: Application) : AndroidViewModel(appContext) {
             todoRepository.deleteProject(project)
         }
     }
+
+
 
 
 }
