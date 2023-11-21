@@ -1,10 +1,12 @@
 package com.cmps312.todolistapp.repository
 
 import com.cmps312.todolistapp.model.Project
+import com.cmps312.todolistapp.model.Todo
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.tasks.await
 
 class TodoRepository {
 
@@ -36,10 +38,28 @@ class TodoRepository {
         awaitClose { snapshotListener.remove() }
     }
 
-//    fun observeTodos(pid: String): Flow<List<Todo>>
-//    suspend fun getTodo(id: String):
-//    suspend fun addTodo(todo: Todo)
-//    fun updateTodo(todo: Todo)
-//    fun deleteTodo(todo: Todo)
-//    suspend fun getTodoListByProject(pid: String)
+    fun observeTodos(pid: String): Flow<List<Todo>> = callbackFlow {
+        val snapshotListener = todosRef.whereEqualTo("pid", pid)
+            .addSnapshotListener { values, err ->
+                if (err != null)
+                    return@addSnapshotListener
+                val todos = values!!.toObjects(Todo::class.java)
+                trySend(todos)
+            }
+        awaitClose { snapshotListener.remove() }
+    }
+
+    suspend fun getTodo(id: String) = todosRef
+        .document(id)
+        .get()
+        .await()
+        .toObject(Todo::class.java)
+
+    suspend fun addTodo(todo: Todo) = todosRef.add(todo).await().id
+    fun updateTodo(todo: Todo) = todosRef.document(todo.id).set(todo)
+    fun deleteTodo(todo: Todo) = todosRef.document(todo.id).delete()
+    suspend fun getTodoListByProject(pid: String) = todosRef
+        .whereEqualTo("pid", pid)
+        .get().await()
+        .toObjects(Todo::class.java)
 }
