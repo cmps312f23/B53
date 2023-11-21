@@ -12,22 +12,22 @@ import kotlinx.coroutines.tasks.await
 class TodoRepository {
 
 
-    fun observeProjects(): Flow<List<Project>>
-
-    fun addProject(project: Project)
-
-    fun updateProject(project: Project)
-
-    suspend fun deleteProject(project: Project)
-
-    fun observeTodos(pid: String): Flow<List<Todo>>
-
-    suspend fun getTodo(id: String):
-    suspend fun addTodo(todo: Todo)
-
-
-    fun updateTodo(todo: Todo)
-    fun deleteTodo(todo: Todo)
-
-    suspend fun getTodoListByProject(pid: String)
+//    fun observeProjects(): Flow<List<Project>>
+//
+//    fun addProject(project: Project)
+//
+//    fun updateProject(project: Project)
+//
+//    suspend fun deleteProject(project: Project)
+//
+//    fun observeTodos(pid: String): Flow<List<Todo>>
+//
+//    suspend fun getTodo(id: String):
+//    suspend fun addTodo(todo: Todo)
+//
+//
+//    fun updateTodo(todo: Todo)
+//    fun deleteTodo(todo: Todo)
+//
+//    suspend fun getTodoListByProject(pid: String)
 }

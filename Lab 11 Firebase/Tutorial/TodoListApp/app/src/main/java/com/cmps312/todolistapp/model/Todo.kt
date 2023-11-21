@@ -9,7 +9,8 @@ data class Todo(
     var time: String? = null,
     var pid: String,
 
-    val id: String = "",
+    @DocumentId
+    val id: String = ""
 ) {
     //    important to have this
     constructor() : this(pid = "")
