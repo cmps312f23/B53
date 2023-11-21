@@ -23,9 +23,13 @@ class TodoRepository {
         .document(project.id)
         .set(project)
 
-    fun deleteProject(project: Project) = projectsRef
-        .document(project.id)
-        .delete()
+    suspend fun deleteProject(project: Project) {
+        val todos = getTodoListByProject(project.id)
+        todos.forEach { deleteTodo(it) }
+        projectsRef
+            .document(project.id)
+            .delete()
+    }
 
     fun observeProjects(): Flow<List<Project>> = callbackFlow {
         val snapshotListener = projectsRef.addSnapshotListener { values, err ->
