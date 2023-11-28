@@ -15,9 +15,9 @@ import androidx.navigation.compose.composable
 import com.cmps312.todolist.model.Project
 import com.cmps312.todolist.model.Todo
 import com.cmps312.todolist.ui.view.loginregistration.LoginScreen
+import com.cmps312.todolist.ui.view.loginregistration.RegisterScreen
 import com.cmps312.todolist.ui.view.project.ProjectEditor
 import com.cmps312.todolist.ui.view.project.ProjectScreen
-import com.cmps312.todolist.ui.view.loginregistration.RegisterScreen
 import com.cmps312.todolist.ui.view.todo.TodoEditor
 import com.cmps312.todolist.ui.view.todo.TodoScreen
 import com.cmps312.todolist.ui.viewmodel.SignInViewModel
@@ -98,7 +98,8 @@ fun AppNavHost(
         }
         composable(route = NavDestinations.RegisterScreen.route) {
             val registrationSuccess =
-                signInViewModel.userRegistratedSuccessfully.collectAsStateWithLifecycle().value
+                signInViewModel.userRegistratedSuccessfully
+                    .collectAsStateWithLifecycle().value
             if (registrationSuccess)
                 navHostController.navigate(NavDestinations.LoginScreen.route) {
                     popUpTo(NavDestinations.LoginScreen.route) {

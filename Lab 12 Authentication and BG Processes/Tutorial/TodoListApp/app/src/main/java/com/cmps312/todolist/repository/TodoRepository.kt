@@ -20,6 +20,7 @@ class TodoRepository {
 
     //get a link to the database
     val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     // get the collections
     private val projectCollectionRef = db.collection("projects")
@@ -28,6 +29,8 @@ class TodoRepository {
 //    Todo modify the project to revieve image
     suspend fun addProject(project: Project, imageUri: Uri?) {
 //        TODO projectid
+        if (imageUri != null)
+            project.imageURL = uploadPhoto(imageUri)
         projectCollectionRef.add(project)
     }
 
@@ -48,7 +51,7 @@ class TodoRepository {
 
     fun observeProjects(): Flow<List<Project>> = callbackFlow {
         val snapShotListener = projectCollectionRef
-//            TODO 1 Query by user id
+            .whereEqualTo("userId", auth.currentUser?.uid)
             .addSnapshotListener { values, err ->
                 if (err != null)
                     return@addSnapshotListener
@@ -99,8 +102,15 @@ class TodoRepository {
         var timeStamp = SimpleDateFormat("yyyymmdd_HHmmss").format(Date())
         var imageName = "Image_$timeStamp.png"
 
+        var storageRef = FirebaseStorage.getInstance()
+            .reference
+            .child("images/$imageName")
+
+//        uploading the image
+        storageRef.putFile(photoUri).await()
+        return storageRef.downloadUrl.await().toString()
+
 //       add the storage
-        return ""
     }
 
 

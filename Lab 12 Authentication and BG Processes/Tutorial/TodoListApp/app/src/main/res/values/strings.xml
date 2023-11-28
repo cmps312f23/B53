@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TodoListApp</string>
+    <string name="user_registered_successfully">User registered successfully</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="user_registration_did_not_succeed">User registration did not succeed</string>
 </resources>

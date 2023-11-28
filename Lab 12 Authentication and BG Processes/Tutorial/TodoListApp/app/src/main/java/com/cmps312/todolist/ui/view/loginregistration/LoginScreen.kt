@@ -20,12 +20,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cmps312.todolist.R
 
 //create a simple login screen with email and password fields
 //step 2
@@ -57,7 +59,7 @@ fun LoginScreen(onLogin: (String, String) -> Unit, onRegisterAccount: () -> Unit
             Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
-            label = { Text(text = "Username") }
+            label = { Text(text = stringResource(R.string.username)) }
         )
         OutlinedTextField(
             value = password,
@@ -65,7 +67,7 @@ fun LoginScreen(onLogin: (String, String) -> Unit, onRegisterAccount: () -> Unit
             Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
-            label = { Text(text = "Password") },
+            label = { Text(text = stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation()
         )
 
