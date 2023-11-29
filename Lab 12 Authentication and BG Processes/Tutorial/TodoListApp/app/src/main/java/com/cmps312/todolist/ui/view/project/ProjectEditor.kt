@@ -34,6 +34,9 @@ fun ProjectEditor(onSubmitProject: (Project , Uri?) -> Unit, project: Project) {
     var projectName by remember { mutableStateOf(project.name) }
 //  TODO  image chooser
     var imageUri by remember { mutableStateOf<Uri?>(null) }
+    val imageChooser = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) {
+        imageUri = it
+    }
 
     Card(
         modifier = Modifier
@@ -68,9 +71,10 @@ fun ProjectEditor(onSubmitProject: (Project , Uri?) -> Unit, project: Project) {
             )
             ElevatedButton(onClick = {
 //                TODO ADD IMAGE CHOOSER
+                imageChooser.launch("image/*")
             }) { Text(text = "Choose Image") }
 
-//            GlideImage(model = imageUri, contentDescription = "")
+            GlideImage(model = imageUri, contentDescription = "")
 
             Button(
                 onClick = {

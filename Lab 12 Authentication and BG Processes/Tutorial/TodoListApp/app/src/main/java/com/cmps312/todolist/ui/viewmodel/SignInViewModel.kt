@@ -56,11 +56,26 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-
+                    _user.value = User(auth.currentUser?.email!!, email!!.split("@")[0])
                 } else {
-
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.sign_in_failed), Toast.LENGTH_SHORT)
+                    _user.value = null
                 }
             }
     }
 
+    fun signOut() {
+        auth.signOut()
+        _user.value = null
+        userRegistratedSuccessfully.value = false
+        Toast.makeText(context, context.getString(R.string.signed_out), Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        signOut()
+    }
 }

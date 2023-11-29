@@ -29,6 +29,7 @@ class TodoRepository {
 //    Todo modify the project to revieve image
     suspend fun addProject(project: Project, imageUri: Uri?) {
 //        TODO projectid
+        project.userId = auth.currentUser!!.uid
         if (imageUri != null)
             project.imageURL = uploadPhoto(imageUri)
         projectCollectionRef.add(project)
