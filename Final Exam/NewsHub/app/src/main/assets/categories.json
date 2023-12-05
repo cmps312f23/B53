@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "category": "Technology"
+  },
+  {
+    "id": 2,
+    "category": "Science"
+  },
+  {
+    "id": 3,
+    "category": "Business"
+  },
+  {
+    "id": 4,
+    "category": "Politics"
+  }
+]
+
